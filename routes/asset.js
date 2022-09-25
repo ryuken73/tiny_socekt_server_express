@@ -42,7 +42,7 @@ router.post('/:id', async (req, res, next) => {
 router.delete('/:id', async (req, res, next) => {
 	const { id } = req.params;
 	const result = await global.db.deleteAssetById(parseInt(id));
-	res.json(asset);
+	res.json(result);
 });
 
 module.exports = router;
