@@ -2,19 +2,20 @@ const express = require('express');
 const expressServer = require('./lib/expressServer');
 const path = require('path');
 const fs = require('fs');
+const tinyDB = require('./lib/tinyDB');
 
 const mode = process.env.MODE || 'prod';
 const ssl = process.env.SSL || 'on';
 const SSL_MODE = ssl === 'off' ? false: true;
-// change doc root according to your env.
+// change doc-root, db-file path and attach dir in prod env
 const DOC_ROOT_PATH = mode === 'dev' ? 'D:/project/004.react/touch_config/build' : 'd:/touch_config/docs';
-//
-const LOW_DB_FILE = mode === 'dev' ? 'D:/project/002.node/tiny_socket_server/db/db.json' : 'D:/touch_config/db/db.json';
+const DB_FILE = mode === 'dev' ? 'D:/project/002.node/touch_config_server/db/db.json' : 'D:/touch_config/db/db.json';
+const MEDIA_ROOT = mode === 'dev' ? 'D:/project/002.node/touch_config_server/media' : 'D:/touch_config/media';
 const certPath = path.join(__dirname, './ssl');
 
-fs.access(LOW_DB_FILE, (err) => {
+fs.access(DB_FILE, (err) => {
     if(err){
-        console.error(`cannot access db file. touch empty db.json at ${LOW_DB_FILE} and start again.`);
+        console.error(`cannot access db file. touch empty db.json at ${DB_FILE} and start again.`);
         process.exit();
     }
 })
@@ -22,7 +23,8 @@ fs.access(LOW_DB_FILE, (err) => {
 console.log('MODE =', mode);
 console.log('SSL_MODE =', SSL_MODE);
 console.log('DOC_ROOT =', DOC_ROOT_PATH);
-console.log('DB_FILE =', LOW_DB_FILE);
+console.log('MEDIA_ROOT =', MEDIA_ROOT);
+console.log('DB_FILE =', DB_FILE);
 
 const option = {
     publicDirectory: DOC_ROOT_PATH,
@@ -81,14 +83,22 @@ const attachHandler = (socket, io) => {
     })
 }
 
-app.set('LOW_DB_PATH', path.dirname(LOW_DB_FILE));
-app.set('LOW_DB_FILE', path.basename(LOW_DB_FILE));
-app.set('LOW_DB_FILE_FULL', LOW_DB_FILE);
+global.db = tinyDB(DB_FILE);
 
-const extUrlRoute = require('./routes/extUrl');
+app.set('DB_PATH', path.dirname(DB_FILE));
+app.set('DB_FILE', path.basename(DB_FILE));
+app.set('DB_FILE_FULL', DB_FILE);
+app.set('MEDIA_ROOT', MEDIA_ROOT);
 
-app.use('/extUrl', extUrlRoute);
+const assetRouter = require('./routes/asset');
+const assetListRouter = require('./routes/assetList');
+const attachRouter = require('./routes/attach');
+
+app.use('/asset', assetRouter);
+app.use('/assetList', assetListRouter);
+app.use('/attach', attachRouter);
 app.use('/config', express.static(DOC_ROOT_PATH));
+app.use('/media', express.static(MEDIA_ROOT));
 
 expressServer.attachErrorHandleRouter(app);
 

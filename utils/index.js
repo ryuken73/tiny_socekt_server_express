@@ -32,7 +32,7 @@ const clone = {
 }
 
 const date = {
-    getString(date, separator={}){
+    getString({date=new Date(), separator={}, dateOnly=false}){
         const {
             dateSep='', 
             timeSep='', 
@@ -46,7 +46,7 @@ const date = {
         const second = number.padZero(date.getSeconds());
         const dateString = `${year}${dateSep}${month}${dateSep}${day}`;
         const timeString = `${hour}${timeSep}${minute}${timeSep}${second}`;
-        return `${dateString}${sep}${timeString}`;
+        return dateOnly ? dateString : `${dateString}${sep}${timeString}`;
     }
 }
 
