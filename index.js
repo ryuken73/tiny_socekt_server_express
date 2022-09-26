@@ -84,6 +84,8 @@ const attachHandler = (socket, io) => {
 }
 
 global.db = tinyDB(DB_FILE);
+console.log(global.db)
+global.db.selectDB();
 
 app.set('DB_PATH', path.dirname(DB_FILE));
 app.set('DB_FILE', path.basename(DB_FILE));
