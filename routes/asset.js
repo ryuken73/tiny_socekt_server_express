@@ -34,8 +34,8 @@ router.put('/', async (req, res, next) => {
 
 router.post('/:id', async (req, res, next) => {
 	const { id } = req.params;
-	const { title, type, src } = req.query;
-	const result = await global.db.updateAssetById(parseInt(id));
+	const { title, type, sources } = req.query;
+	const result = await global.db.updateAssetById(parseInt(id), {title, type, sources});
 	res.json(result);
 });
 
