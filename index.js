@@ -7,6 +7,7 @@ const tinyDB = require('./lib/tinyDB');
 const mode = process.env.MODE || 'prod';
 const ssl = process.env.SSL || 'on';
 const SSL_MODE = ssl === 'off' ? false: true;
+const HTTP_MEDIA_ROOT = process.env.HTTP_MEDIA_ROOT || 'http://touchconf.sbs.co.kr/media';
 // change doc-root, db-file path and attach dir in prod env
 const DOC_ROOT_PATH = mode === 'dev' ? 'D:/project/004.react/touch_config/build' : 'd:/touch_config/docs';
 const DB_FILE = mode === 'dev' ? 'D:/project/002.node/touch_config_server/db/db.json' : 'D:/touch_config/db/db.json';
@@ -25,6 +26,7 @@ console.log('SSL_MODE =', SSL_MODE);
 console.log('DOC_ROOT =', DOC_ROOT_PATH);
 console.log('MEDIA_ROOT =', MEDIA_ROOT);
 console.log('DB_FILE =', DB_FILE);
+console.log('HTTP_MEDIA_ROOT =', HTTP_MEDIA_ROOT);
 
 const option = {
     publicDirectory: DOC_ROOT_PATH,
@@ -84,13 +86,13 @@ const attachHandler = (socket, io) => {
 }
 
 global.db = tinyDB(DB_FILE);
-console.log(global.db)
 global.db.selectDB();
 
 app.set('DB_PATH', path.dirname(DB_FILE));
 app.set('DB_FILE', path.basename(DB_FILE));
 app.set('DB_FILE_FULL', DB_FILE);
 app.set('MEDIA_ROOT', MEDIA_ROOT);
+app.set('HTTP_MEDIA_ROOT', HTTP_MEDIA_ROOT);
 
 const assetRouter = require('./routes/asset');
 const assetListRouter = require('./routes/assetList');

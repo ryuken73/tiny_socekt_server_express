@@ -20,16 +20,19 @@ const saveMedia = (inStream, outStream) => {
 }
 
 router.put('/', async (req, res, next) => {
-	const { fname } = req.query;
+	const { fname, size } = req.query;
 	const baseDir = req.app.get('MEDIA_ROOT');
-	const targetDir = path.join(baseDir, utils.date.getString({dateOnly: true}));
+	const httpMediaRoot = req.app.get('HTTP_MEDIA_ROOT');
+	const dateString = utils.date.getString({dateOnly: true})
+	const targetDir = path.join(baseDir, dateString);
+	const httpPath = `${httpMediaRoot}/${dateString}/${fname}`
 	mkdirp(targetDir)
 	.then(async made => {
 		const outFname = path.join(targetDir, fname);
 		const inStream = req;
 		const outStream = fs.createWriteStream(outFname)
 		saveMedia(inStream, outStream)
-		res.json({success:true, saved:outFname});
+		res.json({success:true, saved:outFname, httpPath, size});
 	})
 	.catch(err => {
 		console.error(err);
