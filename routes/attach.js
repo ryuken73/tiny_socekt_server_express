@@ -32,7 +32,7 @@ router.put('/', async (req, res, next) => {
 		const inStream = req;
 		const outStream = fs.createWriteStream(outFname)
 		saveMedia(inStream, outStream)
-		res.json({success:true, saved:outFname, httpPath, size});
+		res.json({success:true, srcLocal:outFname, srcRemote:httpPath, size});
 	})
 	.catch(err => {
 		console.error(err);
