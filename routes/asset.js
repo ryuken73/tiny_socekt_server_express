@@ -19,29 +19,29 @@ const saveMedia = (inStream, outStream) => {
 	})
 }
 
-router.get('/:id', async (req, res, next) => {
-	const { id } = req.params;
-	const asset = await global.db.selectAssetById(parseInt(id));
+router.get('/:assetId', async (req, res, next) => {
+	const { assetId } = req.params;
+	const asset = await global.db.selectAssetById(parseInt(assetId));
 	res.json(asset);
 });
 
 router.put('/', async (req, res, next) => {
-	const { title, type, sources } = req.body;
+	const { assetTitle, sources, displayMode } = req.body;
 	console.log('##',req.body)
-	const result = await global.db.appendAsset({title, type, sources});
+	const result = await global.db.appendAsset({assetTitle, sources, displayMode});
 	res.json(result);
 })
 
-router.post('/:id', async (req, res, next) => {
-	const { id } = req.params;
-	const { title, type, sources } = req.query;
-	const result = await global.db.updateAssetById(parseInt(id), {title, type, sources});
+router.post('/:assetId', async (req, res, next) => {
+	const { assetId } = req.params;
+	const { assetTitle, sources, displayMode } = req.query;
+	const result = await global.db.updateAssetById(parseInt(assetId), {assetTitle, sources, displayMode});
 	res.json(result);
 });
 
-router.delete('/:id', async (req, res, next) => {
-	const { id } = req.params;
-	const result = await global.db.deleteAssetById(parseInt(id));
+router.delete('/:assetId', async (req, res, next) => {
+	const { assetId } = req.params;
+	const result = await global.db.deleteAssetById(parseInt(assetId));
 	res.json(result);
 });
 
