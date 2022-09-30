@@ -10,7 +10,7 @@ const SSL_MODE = ssl === 'off' ? false: true;
 const HTTP_MEDIA_ROOT = process.env.HTTP_MEDIA_ROOT || 'http://touchconf.sbs.co.kr/media';
 // change doc-root, db-file path and attach dir in prod env
 const DOC_ROOT_PATH = mode === 'dev' ? 'D:/project/004.react/touch_config/build' : 'd:/touch_config/docs';
-const DB_FILE = mode === 'dev' ? 'D:/project/002.node/touch_config_server/db/db.json' : 'D:/touch_config/db/db.json';
+const DB_FILE = mode === 'dev' ? process.env.DB_FILE || 'D:/project/002.node/touch_config_server/db/db.json' : 'D:/touch_config/db/db.json';
 const MEDIA_ROOT = mode === 'dev' ? 'D:/project/002.node/touch_config_server/media' : 'D:/touch_config/media';
 const certPath = path.join(__dirname, './ssl');
 
