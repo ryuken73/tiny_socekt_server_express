@@ -20,7 +20,7 @@ const saveMedia = (inStream, outStream) => {
 }
 
 router.put('/', async (req, res, next) => {
-	const { fname, size } = req.query;
+	const { fname, size, srcId } = req.query;
 	const baseDir = req.app.get('MEDIA_ROOT');
 	const httpMediaRoot = req.app.get('HTTP_MEDIA_ROOT');
 	const dateString = utils.date.getString({dateOnly: true})
@@ -32,7 +32,7 @@ router.put('/', async (req, res, next) => {
 		const inStream = req;
 		const outStream = fs.createWriteStream(outFname)
 		saveMedia(inStream, outStream)
-		res.json({success:true, srcLocal:outFname, srcRemote:httpPath, size});
+		res.json({success:true, srcLocal:outFname, srcRemote:httpPath, size, srcId});
 	})
 	.catch(err => {
 		console.error(err);
