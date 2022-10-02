@@ -98,13 +98,13 @@ const assetRouter = require('./routes/asset');
 const assetListRouter = require('./routes/assetList');
 const attachRouter = require('./routes/attach');
 const menuRouter = require('./routes/menu');
-const menuListRouter = require('./routes/menuList');
+const assetsActiveRouter = require('./routes/assetsActive');
 
 app.use('/asset', assetRouter);
 app.use('/assetList', assetListRouter);
 app.use('/attach', attachRouter);
 app.use('/menu', menuRouter);
-app.use('/menuList', menuListRouter);
+app.use('/assetsActive',assetsActiveRouter);
 app.use('/config', express.static(DOC_ROOT_PATH));
 app.use('/media', express.static(MEDIA_ROOT));
 
