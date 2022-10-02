@@ -11,6 +11,7 @@ const HTTP_MEDIA_ROOT = process.env.HTTP_MEDIA_ROOT || 'http://touchconf.sbs.co.
 // change doc-root, db-file path and attach dir in prod env
 const DOC_ROOT_PATH = mode === 'dev' ? 'D:/project/004.react/touch_config/build' : 'd:/touch_config/docs';
 const DB_FILE = mode === 'dev' ? process.env.DB_FILE || 'D:/project/002.node/touch_config_server/db/db.json' : 'D:/touch_config/db/db.json';
+const DEFAULT_DB_FILE = mode === 'dev' ? process.env.DEFAULT_DB_FILE || 'D:/project/002.node/touch_config_server/db/defaultDB.json' : 'D:/touch_config/db/defaultDB.json';
 const MEDIA_ROOT = mode === 'dev' ? 'D:/project/002.node/touch_config_server/media' : 'D:/touch_config/media';
 const certPath = path.join(__dirname, './ssl');
 
@@ -26,6 +27,7 @@ console.log('SSL_MODE =', SSL_MODE);
 console.log('DOC_ROOT =', DOC_ROOT_PATH);
 console.log('MEDIA_ROOT =', MEDIA_ROOT);
 console.log('DB_FILE =', DB_FILE);
+console.log('DEFAULT_DB_FILE =', DEFAULT_DB_FILE);
 console.log('HTTP_MEDIA_ROOT =', HTTP_MEDIA_ROOT);
 
 const option = {
@@ -91,6 +93,7 @@ global.db.selectDB();
 app.set('DB_PATH', path.dirname(DB_FILE));
 app.set('DB_FILE', path.basename(DB_FILE));
 app.set('DB_FILE_FULL', DB_FILE);
+app.set('DEFAULT_DB_FILE', DEFAULT_DB_FILE);
 app.set('MEDIA_ROOT', MEDIA_ROOT);
 app.set('HTTP_MEDIA_ROOT', HTTP_MEDIA_ROOT);
 
