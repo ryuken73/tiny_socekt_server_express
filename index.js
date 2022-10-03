@@ -56,7 +56,7 @@ const [app, httpServer] = expressServer.httpServer.create(option);
 const [appHttps, httpsServer] = httpsOption ? expressServer.httpsServer.create(httpsOption) : [null, null];
 
 
-const ioOption = {};
+const ioOption = {cors: {origin: '*'}};
 const io = require('socket.io')(httpServer, ioOption);
 const {create, setLevel} = require('./lib/logger')();
 const logger = create({logFile:'tiny_socket_server.log'});
