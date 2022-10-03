@@ -36,7 +36,7 @@
                     "size": null
                 }
             ],
-            "diplayMode": 1
+            "displayMode": "swipe" 
         },
         {
             "assetId": 1,
@@ -104,7 +104,7 @@
                     "size": null
                 }
             ],
-            "diplayMode": 0
+            "displayMode": "flexRow"
         },
         {
             "assetId": 6,
@@ -127,7 +127,7 @@
                     "size": null
                 }
             ],
-            "diplayMode": 1
+            "displayMode": "swipe"
         }
     ],
     "assetsActive": [
@@ -167,7 +167,7 @@
                     "size": null
                 }
             ],
-            "diplayMode": 1
+            "displayMode": "swipe" 
         },
         {
             "assetId": 1,
@@ -235,7 +235,7 @@
                     "size": null
                 }
             ],
-            "diplayMode": 0
+            "displayMode": "flexRow"
         },
         {
             "assetId": 6,
@@ -258,7 +258,7 @@
                     "size": null
                 }
             ],
-            "diplayMode": 1
+            "displayMode": "swipe"
         }
     ],
     "options": []
