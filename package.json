@@ -7,7 +7,7 @@
   "license": "MIT",
   "scripts": {
     "start": "nodemon ./index.js",
-    "build": "pkg . -t win -o ./build/bcastServer"
+    "build": "pkg . -t win -o ./build/touch_server"
   },
   "bin": "./index.js",
   "pkg": {
