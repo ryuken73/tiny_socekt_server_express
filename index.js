@@ -13,6 +13,7 @@ const DOC_ROOT_PATH = mode === 'dev' ? 'D:/project/004.react/touch_config/build'
 const DB_FILE = mode === 'dev' ? process.env.DB_FILE || 'D:/project/002.node/touch_config_server/db/db.json' : 'D:/touch_config/db/db.json';
 const DEFAULT_DB_FILE = mode === 'dev' ? process.env.DEFAULT_DB_FILE || 'D:/project/002.node/touch_config_server/db/defaultDB.json' : 'D:/touch_config/db/defaultDB.json';
 const MEDIA_ROOT = mode === 'dev' ? 'D:/project/002.node/touch_config_server/media' : 'D:/touch_config/media';
+const HTML_ROOT = mode === 'dev' ? 'D:/project/002.node/touch_config_server/html' : 'D:/touch_config/html';
 const certPath = path.join(__dirname, './ssl');
 
 fs.access(DB_FILE, (err) => {
@@ -29,6 +30,7 @@ console.log('MEDIA_ROOT =', MEDIA_ROOT);
 console.log('DB_FILE =', DB_FILE);
 console.log('DEFAULT_DB_FILE =', DEFAULT_DB_FILE);
 console.log('HTTP_MEDIA_ROOT =', HTTP_MEDIA_ROOT);
+console.log('HTML_ROOT =', HTML_ROOT);
 
 const option = {
     publicDirectory: DOC_ROOT_PATH,
@@ -110,6 +112,7 @@ app.use('/menu', menuRouter);
 app.use('/assetsActive',assetsActiveRouter);
 app.use('/config', express.static(DOC_ROOT_PATH));
 app.use('/media', express.static(MEDIA_ROOT));
+app.use('/html', express.static(HTML_ROOT))
 
 expressServer.attachErrorHandleRouter(app);
 
